@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'min:3', 'max:40'],
             'description' => ['nullable', 'string', 'min:150', 'max:400'],
-            'logo' => ['nullable', 'file', 'mimes:jpg,png', 'max:3072'],
+            'logo' => ['nullable', 'file', 'mimes:png', 'max:3072'],
         ];
     }
 }

@@ -64,6 +64,7 @@ class CommentController extends Controller
     public function update(UpdateRequest $updateRequest, Comment $comment)
     {
         $data = $this->commentService->updateComment($updateRequest->validated(), $comment);
+
         return response([
             'data' => CommentResource::make($data->load('user')->load('company')),
             'message' => CommentResponseEnum::COMMENT_UPDATED,

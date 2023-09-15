@@ -42,4 +42,21 @@ class CompanyService
 
         return true;
     }
+
+    public function rating(Company $company)
+    {
+        $company->load('comments');
+        $data = (float)$company->comments()->avg('rating');
+        return $data;
+    }
+
+    public function top()
+    {
+        $data = Company::withCount(['comments as rating' => function ($query) {
+            $query->select(\DB::raw('coalesce(avg(rating), 0)'));
+        }])->orderByDesc('rating')
+            ->limit(10)
+            ->get();
+        return $data;
+    }
 }

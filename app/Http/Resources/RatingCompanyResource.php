@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompanyResource extends JsonResource
+class RatingCompanyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +19,6 @@ class CompanyResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'logo' => $this->logo,
-            'comments'=>CommentResource::collection($this->whenLoaded('comments'))
         ];
     }
 }

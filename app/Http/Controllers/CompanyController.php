@@ -6,6 +6,8 @@ use App\Console\Constants\CompanyResponseEnum;
 use App\Http\Requests\Company\StoreRequest;
 use App\Http\Requests\Company\UpdateRequest;
 use App\Http\Resources\CompanyResource;
+use App\Http\Resources\RatingCompanyResource;
+use App\Http\Resources\TopCompanyResource;
 use App\Models\Company;
 use App\Services\CompanyService;
 use Illuminate\Http\Request;
@@ -78,6 +80,39 @@ class CompanyController extends Controller
 
         return response([
             'message' => CompanyResponseEnum::COMPANY_DELETED,
+            'success' => true,
+        ]);
+    }
+
+    public function comments(Company $company)
+    {
+
+        return response([
+            'data' => CompanyResource::make($company->load('comments')),
+            'message' => CompanyResponseEnum::COMPANY_COMMENT,
+            'success' => true,
+        ]);
+    }
+
+    public function companyValuation(Company $company)
+    {
+        $data = $this->companyService->rating($company);
+
+        return response([
+            'data' => RatingCompanyResource::make($company),
+            'average rating' => $data,
+            'message' => CompanyResponseEnum::COMPANY_RATING,
+            'success' => true,
+        ]);
+    }
+
+    public function companyTop()
+    {
+        $data = $this->companyService->top();
+
+        return response([
+            'data' => TopCompanyResource::collection($data),
+            'message' => CompanyResponseEnum::COMPANY_TOP,
             'success' => true,
         ]);
     }

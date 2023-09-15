@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:40'],
             'description' => ['required', 'string', 'min:150', 'max:400'],
-            'logo' => ['required', 'file', 'mimes:jpg,png', 'max:3072'],
+            'logo' => ['required', 'file', 'mimes:png', 'max:3072'],
         ];
     }
 }

@@ -19,4 +19,9 @@ class Company extends Model
     {
         return $this->hasMany(Comment::class, 'company_id', 'id');
     }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
 }
