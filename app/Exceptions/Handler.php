@@ -27,4 +27,17 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    public function render($request, Throwable $e)
+    {
+        $response = parent::render($request, $e);
+
+        if ($response->getStatusCode() >= 400) {
+            return response([
+                'message' => $e->getMessage(),
+                'success' => false
+            ]);
+        }
+
+        return $response;
+    }
 }
